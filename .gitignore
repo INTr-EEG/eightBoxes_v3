@@ -1,2 +1,6 @@
-data/
+dev/
+dev-*/
 *.bat
+*.map
+*.py
+
