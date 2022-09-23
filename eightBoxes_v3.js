@@ -992,9 +992,12 @@ function part1RoutineEnd() {
 
 var DRAGGING;
 var clicked_obj;
+var clicked_obj_name;
 var fruits_left;
 var first_click;
 var first_click_time;
+var fruit_idx;
+var orig_pos;
 var choices;
 var x;
 var y;
@@ -1014,9 +1017,16 @@ function part2RoutineBegin(snapshot) {
     // update component parameters for each repeat
     DRAGGING = false;
     clicked_obj = null;
+    clicked_obj_name = "_";
     fruits_left = n_fruits;
     first_click = true;
     first_click_time = 0;
+    fruit_idx = null;
+    orig_pos = [];
+    for (var found_fruit, _pj_c = 0, _pj_a = found_fruits, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+        found_fruit = _pj_a[_pj_c];
+        orig_pos.push(found_fruit.pos);
+    }
     choices = [];
     for (var i, _pj_c = 0, _pj_a = util.range(N_BOXES), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
@@ -1070,18 +1080,20 @@ function part2RoutineEachFrame() {
         }
     }
     if ((! DRAGGING)) {
-        for (var found_fruit, _pj_c = 0, _pj_a = found_fruits, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
-            found_fruit = _pj_a[_pj_c];
-            if (MOUSE.isPressedIn(found_fruit)) {
+        for (var i, _pj_c = 0, _pj_a = util.range(found_fruits.length), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+            i = _pj_a[_pj_c];
+            if (MOUSE.isPressedIn(found_fruits[i])) {
                 if (first_click) {
                     first_click_time = t;
                     first_click = false;
                 }
-                clicked_obj = found_fruit;
-                for (var i, _pj_f = 0, _pj_d = util.range(N_BOXES), _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
-                    i = _pj_d[_pj_f];
-                    if ((choices[i] === clicked_obj.name)) {
-                        choices[i] = null;
+                clicked_obj = found_fruits[i];
+                clicked_obj_name = clicked_obj.name;
+                fruit_idx = i;
+                for (var j, _pj_f = 0, _pj_d = util.range(N_BOXES), _pj_e = _pj_d.length; (_pj_f < _pj_e); _pj_f += 1) {
+                    j = _pj_d[_pj_f];
+                    if ((choices[j] === clicked_obj.name)) {
+                        choices[j] = null;
                         fruits_left += 1;
                         if ((fruits_left > 0)) {
                             NEXT.opacity = 0.1;
@@ -1093,7 +1105,7 @@ function part2RoutineEachFrame() {
             }
         }
     }
-    if ((MOUSE.getPressed()[0] === 1)) {
+    if (MOUSE_L) {
         if (DRAGGING) {
             clicked_obj.pos = MOUSE.getPos();
             [x, y] = clicked_obj.pos;
@@ -1109,15 +1121,20 @@ function part2RoutineEachFrame() {
             for (var i, _pj_c = 0, _pj_a = util.range(N_BOXES), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
                 i = _pj_a[_pj_c];
                 if (snapped(clicked_obj, boxes[i])) {
-                    choices[i] = clicked_obj.name;
-                    fruits_left -= 1;
-                    clicked_obj = null;
-                    if ((fruits_left < 1)) {
-                        NEXT.opacity = 1;
+                    if ((choices[i] === null)) {
+                        choices[i] = clicked_obj.name;
+                        fruits_left -= 1;
+                        if ((fruits_left < 1)) {
+                            NEXT.opacity = 1;
+                        }
+                    } else {
+                        clicked_obj.pos = orig_pos[fruit_idx];
                     }
                     break;
                 }
             }
+            clicked_obj = null;
+            clicked_obj_name = "_";
         }
     }
     if (SHOW_DEBUG) {
@@ -1126,6 +1143,8 @@ function part2RoutineEachFrame() {
     time_since_first_click = ${round(time_since_first_click, 3)}
     fruits_left = ${fruits_left}
     choices = ${choices}
+    clicked_obj_name = ${clicked_obj_name}
+    fruit_idx = ${fruit_idx}
     SOUND_DUR = ${round(SOUND_DUR, 3)}
     t = ${round(t, 3)}`
     ;
