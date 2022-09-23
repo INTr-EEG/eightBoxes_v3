@@ -16,6 +16,7 @@ time\_since\_first\_click | time taken to place all fruits in boxes, since first
 coords\_x                 | list of x coordinates
 coords\_y                 | list of y coordinates
 coords\_t                 | list of times when x and y coordinates were taken (seconds)
+coords\_objname           | list of names of objects with corresponding x, y, and t data recorded; mouse-tracking currently only records when a draggable object is being dragged
 end\_timestamp            | timestamp at the end of each trial
 total\_seconds            | cumulative time taken at the end of each trial (seconds); the time taken from when all fruits have been placed in boxes to when the 'continue' button is clicked is also included here, this should account for any discrepancy in time elapsed between trials and the sum of `time_since_start` and `reveal_seconds`
 trial\_name               | trial name

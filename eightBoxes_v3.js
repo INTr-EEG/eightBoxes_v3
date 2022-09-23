@@ -1004,6 +1004,7 @@ var y;
 var coords_x;
 var coords_y;
 var coords_t;
+var coords_objname;
 var part2Components;
 function part2RoutineBegin(snapshot) {
   return async function () {
@@ -1037,6 +1038,7 @@ function part2RoutineBegin(snapshot) {
     coords_x = [];
     coords_y = [];
     coords_t = [];
+    coords_objname = [];
     NEXT.opacity = 0.1;
     NEXT.autoDraw = true;
     if ((USE_AUDIO && (trial_name === "Practice trial"))) {
@@ -1113,6 +1115,7 @@ function part2RoutineEachFrame() {
                 coords_x.push(round_dp(x));
                 coords_y.push(round_dp(y));
                 coords_t.push(round_dp(t));
+                coords_objname.push(clicked_obj_name);
             }
         }
     } else {
@@ -1244,6 +1247,7 @@ function part2RoutineEnd() {
     psychoJS.experiment.addData("coords_x", coords_x);
     psychoJS.experiment.addData("coords_y", coords_y);
     psychoJS.experiment.addData("coords_t", coords_t);
+    psychoJS.experiment.addData("coords_objname", coords_objname);
     
     // the Routine "part2" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
