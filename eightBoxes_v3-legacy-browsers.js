@@ -17,6 +17,10 @@ function make_sound(name, filepath) {
     return new sound.Sound({"win": psychoJS.window, "value": filepath, "secs": (- 1), "stereo": true, "hamming": true, "name": name});
 }
 
+function make_img(name, file_name, pos, size, opacity) {
+    return new visual.ImageStim({"win": psychoJS.window, "name": name, "image": file_name, "pos": pos, "size": size, "opacity": opacity});
+}
+
 function within_box(obj, box) {
     /*
     Determine if object is within box
@@ -106,23 +110,24 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'resources/aud/8 boxes Trials 1-8 Recall.m4a', 'path': 'resources/aud/8 boxes Trials 1-8 Recall.m4a'},
-    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
-    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
-    {'name': 'resources/imgs/cherries.png', 'path': 'resources/imgs/cherries.png'},
     {'name': 'resources/aud/8 boxes End of Game.m4a', 'path': 'resources/aud/8 boxes End of Game.m4a'},
-    {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'},
-    {'name': 'resources/aud/8 boxes Slide 4.m4a', 'path': 'resources/aud/8 boxes Slide 4.m4a'},
-    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
-    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
-    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
-    {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
+    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
     {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 4.m4a', 'path': 'resources/aud/8 boxes Slide 4.m4a'},
+    {'name': 'resources/aud/8 boxes Trials 1-8 Recall.m4a', 'path': 'resources/aud/8 boxes Trials 1-8 Recall.m4a'},
+    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
+    {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'},
+    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
+    {'name': 'resources/imgs/cherries.png', 'path': 'resources/imgs/cherries.png'},
+    {'name': 'resources/imgs/continue.png', 'path': 'resources/imgs/continue.png'},
+    {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'},
+    {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
     {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'},
+    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
     {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
     {'name': 'resources/imgs/watermelon.png', 'path': 'resources/imgs/watermelon.png'},
-    {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'},
-    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'}
+    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
   ]
 });
 
@@ -212,9 +217,9 @@ async function experimentInit() {
   RANDOMIZE_FRUITS = true;
   RANDOMIZE_POSITIONS = false;
   MIN_DIST_SQ = (0.005 * 0.005);
-  NEXT_POS = [0, (- 0.38)];
-  NEXT_SIZE = [0.26, 0.1];
-  NEXT = make_button("continue", "Continue", NEXT_POS, NEXT_SIZE);
+  NEXT_POS = [0, (- 0.39)];
+  NEXT_SIZE = [((0.1 / 104) * 254), 0.1];
+  NEXT = make_img("continue", `${IMGS_DIR}/continue.png`, NEXT_POS, NEXT_SIZE);
   MOUSE = new core.Mouse({"win": psychoJS.window});
   MOUSE_L = 0;
   MOUSE_L_prev = 0;
@@ -710,7 +715,7 @@ async function trialsLoopEnd() {
 }
 
 
-var switch_once;
+var within_reveal_time;
 var objs;
 var correct_choices;
 var box_idxs;
@@ -728,7 +733,7 @@ function gateRoutineBegin(snapshot) {
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
     psychoJS.experiment.addData("expVersion", expVersion);
-    switch_once = true;
+    within_reveal_time = true;
     objs = [];
     correct_choices = [];
     for (var i, _pj_c = 0, _pj_a = util.range(N_BOXES), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
@@ -757,6 +762,7 @@ function gateRoutineBegin(snapshot) {
     }
     found_fruits = [];
     if ((trial_name === "Practice trial")) {
+        NEXT.opacity = 0.1;
         NEXT.autoDraw = true;
     }
     if (USE_AUDIO) {
@@ -794,8 +800,9 @@ function gateRoutineEachFrame() {
     t = gateClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    if ((switch_once && (t > reveal_seconds))) {
-        switch_once = false;
+    if ((within_reveal_time && (t > reveal_seconds))) {
+        within_reveal_time = false;
+        NEXT.opacity = 1;
         for (var obj, _pj_c = 0, _pj_a = objs, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
             obj = _pj_a[_pj_c];
             if ((obj !== null)) {
@@ -823,11 +830,13 @@ function gateRoutineEachFrame() {
             continueRoutine = false;
         }
     }
-    MOUSE_L = MOUSE.getPressed()[0];
-    if ((MOUSE_L_prev !== MOUSE_L)) {
-        MOUSE_L_prev = MOUSE_L;
-        if ((MOUSE_L && NEXT.contains(MOUSE))) {
-            continueRoutine = false;
+    if ((! within_reveal_time)) {
+        MOUSE_L = MOUSE.getPressed()[0];
+        if ((MOUSE_L_prev !== MOUSE_L)) {
+            MOUSE_L_prev = MOUSE_L;
+            if ((MOUSE_L && NEXT.contains(MOUSE))) {
+                continueRoutine = false;
+            }
         }
     }
     if (SHOW_DEBUG) {
@@ -1167,6 +1176,7 @@ function part2RoutineEachFrame() {
 }
 
 
+var score;
 var errors;
 function part2RoutineEnd() {
   return async function () {
@@ -1184,23 +1194,35 @@ function part2RoutineEnd() {
     if ((USE_AUDIO && (trial_name === "Practice trial"))) {
         SOUND.stop();
     }
-    psychoJS.experiment.addData("time_since_start", time_since_start);
-    psychoJS.experiment.addData("time_since_first_click", time_since_first_click);
-    psychoJS.experiment.addData("coords_x", coords_x);
-    psychoJS.experiment.addData("coords_y", coords_y);
-    psychoJS.experiment.addData("coords_t", coords_t);
-    psychoJS.experiment.addData("choices", choices);
-    psychoJS.experiment.addData("correct_choices", correct_choices);
+    score = 0;
     errors = 0;
     for (var i, _pj_c = 0, _pj_a = util.range(N_BOXES), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
+        if ((choices[i] === null)) {
+            choices[i] = "-";
+        }
+        if ((correct_choices[i] === null)) {
+            correct_choices[i] = "-";
+        }
         if ((choices[i] !== correct_choices[i])) {
             errors += 1;
+        } else {
+            if ((correct_choices[i] !== "-")) {
+                score += 1;
+            }
         }
     }
+    psychoJS.experiment.addData("choices", choices);
+    psychoJS.experiment.addData("correct_choices", correct_choices);
+    psychoJS.experiment.addData("score", score);
     psychoJS.experiment.addData("errors", errors);
+    psychoJS.experiment.addData("time_since_start", time_since_start);
+    psychoJS.experiment.addData("time_since_first_click", time_since_first_click);
     psychoJS.experiment.addData("end_timestamp", util.MonotonicClock.getDateStr());
     psychoJS.experiment.addData("total_seconds", globalClock.getTime());
+    psychoJS.experiment.addData("coords_x", coords_x);
+    psychoJS.experiment.addData("coords_y", coords_y);
+    psychoJS.experiment.addData("coords_t", coords_t);
     
     // the Routine "part2" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
