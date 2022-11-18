@@ -28,7 +28,7 @@ pos3                      | position of third fruit
 pos4                      | position of fourth fruit
 pos5                      | position of fifth fruit (not used)
 pos6                      | position of sixth fruit (not used)
-ID                        | subject ID
+participant               | participant ID
 Audio                     | activate audio
 Debug                     | activate debug mode
 
