@@ -4,3 +4,5 @@ dev-*/
 *.map
 *.py
 
+resources/.DS_Store
+.DS_Store

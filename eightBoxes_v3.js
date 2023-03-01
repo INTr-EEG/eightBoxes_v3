@@ -118,24 +118,25 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'resources/aud/8 boxes End of Game.m4a', 'path': 'resources/aud/8 boxes End of Game.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 4.m4a', 'path': 'resources/aud/8 boxes Slide 4.m4a'},
+    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
     {'name': 'resources/aud/8 boxes Trials 1-8 Recall.m4a', 'path': 'resources/aud/8 boxes Trials 1-8 Recall.m4a'},
-    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
     {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'},
-    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
+    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
+    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
+    {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
+    {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 3_Trimmed.m4a', 'path': 'resources/aud/8 boxes Slide 3_Trimmed.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 4.m4a', 'path': 'resources/aud/8 boxes Slide 4.m4a'},
     {'name': 'resources/imgs/cherries.png', 'path': 'resources/imgs/cherries.png'},
     {'name': 'resources/imgs/continue.png', 'path': 'resources/imgs/continue.png'},
     {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'},
+    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
     {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
-    {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'},
-    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
-    {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
+    {'name': 'resources/aud/8 boxes End of Game.m4a', 'path': 'resources/aud/8 boxes End of Game.m4a'},
     {'name': 'resources/imgs/watermelon.png', 'path': 'resources/imgs/watermelon.png'},
-    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
+    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
+    {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'}
   ]
 });
 
@@ -763,7 +764,9 @@ function gateRoutineBegin(snapshot) {
         objs[idxs[i]] = fruit_basket[i];
         objs[idxs[i]].pos = BOXES_XY[idxs[i]];
         correct_choices[idxs[i]] = fruit_basket[i].name;
-        objs[idxs[i]].autoDraw = true;
+        if ((trial_name === "Practice trial")) {
+            objs[idxs[i]].autoDraw = true;
+        }
     }
     found_fruits = [];
     if ((trial_name === "Practice trial")) {
@@ -772,7 +775,7 @@ function gateRoutineBegin(snapshot) {
     }
     if (USE_AUDIO) {
         if ((trial_name === "Practice trial")) {
-            aud_file = `${AUD_DIR}/8 boxes Slide 3.m4a`;
+            aud_file = `${AUD_DIR}/8 boxes Slide 3_Trimmed.m4a`;
         } else {
             aud_file = `${AUD_DIR}/8 boxes Trials 1-8 Recall.m4a`;
         }
@@ -795,6 +798,7 @@ function gateRoutineBegin(snapshot) {
 }
 
 
+var disappear_time_point;
 var fruit_pos;
 var found_count;
 function gateRoutineEachFrame() {
@@ -804,7 +808,18 @@ function gateRoutineEachFrame() {
     t = gateClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    if ((within_reveal_time && (t > reveal_seconds))) {
+    if (((trial_name !== "Practice trial") && (t >= SOUND_DUR))) {
+        for (var i, _pj_c = 0, _pj_a = util.range(n_fruits), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
+            i = _pj_a[_pj_c];
+            objs[idxs[i]] = fruit_basket[i];
+            objs[idxs[i]].autoDraw = true;
+        }
+    }
+    disappear_time_point = reveal_seconds;
+    if ((trial_name !== "Practice trial")) {
+        disappear_time_point = (SOUND_DUR + reveal_seconds);
+    }
+    if ((within_reveal_time && (t > disappear_time_point))) {
         within_reveal_time = false;
         NEXT.opacity = 1;
         for (var obj, _pj_c = 0, _pj_a = objs, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
