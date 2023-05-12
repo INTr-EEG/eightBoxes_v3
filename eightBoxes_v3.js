@@ -13,7 +13,7 @@ const { round } = util;
 
 // store info about the experiment session:
 let expName = 'eightBoxes_v3';  // from the Builder filename that created this script
-let expInfo = {'participant': '', 'Audio': ['Yes', 'No'], 'Debug': ['No', 'Yes']};
+let expInfo = {'participant': '', 'Max number of trials': [5, 8], 'Audio': ['Yes', 'No'], 'Debug': ['No', 'Yes']};
 
 // Start code blocks for 'Before Experiment'
 
@@ -212,6 +212,8 @@ var part2_title;
 var part2_text;
 var globalClock;
 var routineTimer;
+var MAX_TRIALS;
+var selected_rows;
 async function experimentInit() {
   // Initialize components for Routine "begin"
   beginClock = new util.Clock();
@@ -220,8 +222,10 @@ async function experimentInit() {
   IMGS_DIR = "resources/imgs";
   SLIDES_DIR = `${IMGS_DIR}/slides`;
   SEQ_FILE = "resources/seqs/conditions_v3.csv";
+  MAX_TRIALS = Number.parseInt(expInfo["Max number of trials"]);
   SHOW_DEBUG = (expInfo["Debug"] === "Yes");
   USE_AUDIO = (expInfo["Audio"] === "Yes");
+  selected_rows = `0:${MAX_TRIALS + 1}`;
   SKIP_PART_1 = true;
   RANDOMIZE_FRUITS = true;
   RANDOMIZE_POSITIONS = false;
@@ -435,7 +439,8 @@ function beginRoutineEachFrame() {
     if (SHOW_DEBUG) {
         begin_text.text = `
     SOUND_DUR = ${round(SOUND_DUR, 3)}
-    t = ${round(t, 3)}`
+    t = ${round(t, 3)}
+    selected_rows = ${selected_rows}`
     ;
     }
     
@@ -687,7 +692,7 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
       psychoJS: psychoJS,
       nReps: 1, method: TrialHandler.Method.SEQUENTIAL,
       extraInfo: expInfo, originPath: undefined,
-      trialList: TrialHandler.importConditions(psychoJS.serverManager, SEQ_FILE, '0:'),
+      trialList: TrialHandler.importConditions(psychoJS.serverManager, SEQ_FILE, selected_rows),
       seed: undefined, name: 'trials'
     });
     psychoJS.experiment.addLoop(trials); // add the loop to the experiment
