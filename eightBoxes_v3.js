@@ -2,9 +2,9 @@
  * Eightboxes_V3 Test *
  **********************/
 
-import { core, data, sound, util, visual, hardware } from './lib/psychojs-2022.2.4.js';
+import { core, data, sound, util, visual } from './lib/psychojs-2021.2.3.js';
 const { PsychoJS } = core;
-const { TrialHandler, MultiStairHandler } = data;
+const { TrialHandler } = data;
 const { Scheduler } = util;
 //some handy aliases as in the psychopy scripts;
 const { abs, sin, cos, PI: pi, sqrt } = Math;
@@ -13,16 +13,9 @@ const { round } = util;
 
 // store info about the experiment session:
 let expName = 'eightBoxes_v3';  // from the Builder filename that created this script
-let expInfo = {
-    'participant': '',
-    'School': '',
-    'Max number of trials': [5, 8],
-    'Audio': ["Yes", "No"],
-    'Debug': ["No", "Yes"],
-};
+let expInfo = {'participant': '', 'School': '', 'Max number of trials': [5, 8], 'Audio': ['Yes', 'No'], 'Debug': ['No', 'Yes']};
 
 // Start code blocks for 'Before Experiment'
-// Run 'Before Experiment' code from functions_g
 
 function make_button(name, text, pos, size) {
     return new visual.ButtonStim({"win": psychoJS.window, "text": text, "pos": pos, "letterHeight": 0.04, "size": size, "borderWidth": 0.005, "fillColor": "lightgrey", "borderColor": "darkgrey", "color": "black", "colorSpace": "rgb", "opacity": null, "bold": true, "italic": false, "padding": null, "anchor": "center", "name": name});
@@ -89,7 +82,7 @@ const psychoJS = new PsychoJS({
 // open window:
 psychoJS.openWindow({
   fullscr: true,
-  color: new util.Color([0,0,0]),
+  color: new util.Color([0, 0, 0]),
   units: 'height',
   waitBlanking: true
 });
@@ -125,41 +118,37 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'resources/imgs/continue.png', 'path': 'resources/imgs/continue.png'},
-    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
-    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
-    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
-    {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
-    {'name': 'resources/imgs/watermelon.png', 'path': 'resources/imgs/watermelon.png'},
-    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
-    {'name': 'resources/aud/8 boxes Trials 1-8 Recall.m4a', 'path': 'resources/aud/8 boxes Trials 1-8 Recall.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'},
-    {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'},
-    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
-    {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'},
-    {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
-    {'name': 'resources/aud/8 boxes Slide 3_Trimmed.m4a', 'path': 'resources/aud/8 boxes Slide 3_Trimmed.m4a'},
-    {'name': 'resources/aud/8 boxes End of Game.m4a', 'path': 'resources/aud/8 boxes End of Game.m4a'},
-    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
     {'name': 'resources/imgs/cherries.png', 'path': 'resources/imgs/cherries.png'},
+    {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'},
+    {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'},
+    {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'},
+    {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
+    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
     {'name': 'resources/aud/8 boxes Slide 4.m4a', 'path': 'resources/aud/8 boxes Slide 4.m4a'},
-    {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'}
+    {'name': 'resources/imgs/continue.png', 'path': 'resources/imgs/continue.png'},
+    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
+    {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
+    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
+    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 3_Trimmed.m4a', 'path': 'resources/aud/8 boxes Slide 3_Trimmed.m4a'},
+    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
+    {'name': 'resources/imgs/watermelon.png', 'path': 'resources/imgs/watermelon.png'},
+    {'name': 'resources/aud/8 boxes Trials 1-8 Recall.m4a', 'path': 'resources/aud/8 boxes Trials 1-8 Recall.m4a'},
+    {'name': 'resources/aud/8 boxes End of Game.m4a', 'path': 'resources/aud/8 boxes End of Game.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'}
   ]
 });
 
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.EXP);
 
 
-var currentLoop;
 var frameDur;
 async function updateInfo() {
-  currentLoop = psychoJS.experiment;  // right now there are no loops
   expInfo['date'] = util.MonotonicClock.getDateStr();  // add a simple timestamp
   expInfo['expName'] = expName;
-  expInfo['psychopyVersion'] = '2022.2.4';
+  expInfo['psychopyVersion'] = '2021.2.3';
   expInfo['OS'] = window.navigator.platform;
-
-  psychoJS.experiment.dataFileName = (("." + "/") + `data/${expInfo["participant"]}_${expInfo["School"]}_${expName}_${expInfo["date"]}`);
 
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();
@@ -228,7 +217,6 @@ var routineTimer;
 async function experimentInit() {
   // Initialize components for Routine "begin"
   beginClock = new util.Clock();
-  // Run 'Begin Experiment' code from begin_code
   expVersion = "2022.09.23";
   AUD_DIR = "resources/aud";
   IMGS_DIR = "resources/imgs";
@@ -288,7 +276,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0.25], height: 0.05,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -2.0 
   });
@@ -300,7 +287,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0.6, 0], height: 0.02,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -3.0 
   });
@@ -314,7 +300,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0.35], height: 0.05,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -1.0 
   });
@@ -326,7 +311,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0.6, 0], height: 0.02,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -2.0 
   });
@@ -340,7 +324,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0.4], height: 0.05,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -1.0 
   });
@@ -352,7 +335,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0.6, 0], height: 0.02,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -2.0 
   });
@@ -368,7 +350,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0, 0.4], height: 0.05,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -1.0 
   });
@@ -380,7 +361,6 @@ async function experimentInit() {
     font: 'Open Sans',
     units: undefined, 
     pos: [0.6, 0], height: 0.02,  wrapWidth: undefined, ori: 0.0,
-    languageStyle: 'LTR',
     color: new util.Color('white'),  opacity: undefined,
     depth: -2.0 
   });
@@ -405,13 +385,12 @@ function beginRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //--- Prepare to start Routine 'begin' ---
+    //------Prepare to start Routine 'begin'-------
     t = 0;
     beginClock.reset(); // clock
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
-    // Run 'Begin Routine' code from begin_code
     for (var i, _pj_c = 0, _pj_a = util.range(N_BOXES), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         i = _pj_a[_pj_c];
         boxes[i].autoDraw = true;
@@ -445,12 +424,11 @@ function beginRoutineBegin(snapshot) {
 
 function beginRoutineEachFrame() {
   return async function () {
-    //--- Loop for each frame of Routine 'begin' ---
+    //------Loop for each frame of Routine 'begin'-------
     // get current time
     t = beginClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    // Run 'Each Frame' code from begin_code
     MOUSE_L = MOUSE.getPressed()[0];
     if ((MOUSE_L_prev !== MOUSE_L)) {
         MOUSE_L_prev = MOUSE_L;
@@ -513,15 +491,14 @@ function beginRoutineEachFrame() {
 }
 
 
-function beginRoutineEnd(snapshot) {
+function beginRoutineEnd() {
   return async function () {
-    //--- Ending Routine 'begin' ---
+    //------Ending Routine 'begin'-------
     for (const thisComponent of beginComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
     }
-    // Run 'End Routine' code from begin_code
     NEXT.autoDraw = false;
     if (USE_AUDIO) {
         SOUND.stop();
@@ -530,12 +507,8 @@ function beginRoutineEnd(snapshot) {
     // the Routine "begin" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
-    // Routines running outside a loop should always advance the datafile row
-    if (currentLoop === psychoJS.experiment) {
-      psychoJS.experiment.nextEntry(snapshot);
-    }
     return Scheduler.Event.NEXT;
-  }
+  };
 }
 
 
@@ -555,13 +528,12 @@ function begin2RoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //--- Prepare to start Routine 'begin2' ---
+    //------Prepare to start Routine 'begin2'-------
     t = 0;
     begin2Clock.reset(); // clock
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
-    // Run 'Begin Routine' code from begin2_code
     NEXT.autoDraw = true;
     if (USE_AUDIO) {
         aud_file = `${AUD_DIR}/8 boxes Slide 2.m4a`;
@@ -617,12 +589,11 @@ function begin2RoutineBegin(snapshot) {
 
 function begin2RoutineEachFrame() {
   return async function () {
-    //--- Loop for each frame of Routine 'begin2' ---
+    //------Loop for each frame of Routine 'begin2'-------
     // get current time
     t = begin2Clock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    // Run 'Each Frame' code from begin2_code
     idx = (frameN % ((2 * HN_FRAMES) + N_FRAMES));
     fruit1.pos = [xx1[idx], yy1[idx]];
     fruit2.pos = [xx2[idx], yy2[idx]];
@@ -687,15 +658,14 @@ function begin2RoutineEachFrame() {
 }
 
 
-function begin2RoutineEnd(snapshot) {
+function begin2RoutineEnd() {
   return async function () {
-    //--- Ending Routine 'begin2' ---
+    //------Ending Routine 'begin2'-------
     for (const thisComponent of begin2Components) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
     }
-    // Run 'End Routine' code from begin2_code
     NEXT.autoDraw = false;
     fruit1.autoDraw = false;
     fruit2.autoDraw = false;
@@ -706,16 +676,13 @@ function begin2RoutineEnd(snapshot) {
     // the Routine "begin2" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
-    // Routines running outside a loop should always advance the datafile row
-    if (currentLoop === psychoJS.experiment) {
-      psychoJS.experiment.nextEntry(snapshot);
-    }
     return Scheduler.Event.NEXT;
-  }
+  };
 }
 
 
 var trials;
+var currentLoop;
 function trialsLoopBegin(trialsLoopScheduler, snapshot) {
   return async function() {
     TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
@@ -733,18 +700,18 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
     
     // Schedule all the trials in the trialList:
     for (const thisTrial of trials) {
-      snapshot = trials.getSnapshot();
+      const snapshot = trials.getSnapshot();
       trialsLoopScheduler.add(importConditions(snapshot));
       trialsLoopScheduler.add(gateRoutineBegin(snapshot));
       trialsLoopScheduler.add(gateRoutineEachFrame());
-      trialsLoopScheduler.add(gateRoutineEnd(snapshot));
+      trialsLoopScheduler.add(gateRoutineEnd());
       trialsLoopScheduler.add(part1RoutineBegin(snapshot));
       trialsLoopScheduler.add(part1RoutineEachFrame());
-      trialsLoopScheduler.add(part1RoutineEnd(snapshot));
+      trialsLoopScheduler.add(part1RoutineEnd());
       trialsLoopScheduler.add(part2RoutineBegin(snapshot));
       trialsLoopScheduler.add(part2RoutineEachFrame());
-      trialsLoopScheduler.add(part2RoutineEnd(snapshot));
-      trialsLoopScheduler.add(trialsLoopEndIteration(trialsLoopScheduler, snapshot));
+      trialsLoopScheduler.add(part2RoutineEnd());
+      trialsLoopScheduler.add(endLoopIteration(trialsLoopScheduler, snapshot));
     }
     
     return Scheduler.Event.NEXT;
@@ -753,34 +720,9 @@ function trialsLoopBegin(trialsLoopScheduler, snapshot) {
 
 
 async function trialsLoopEnd() {
-  // terminate loop
   psychoJS.experiment.removeLoop(trials);
-  // update the current loop from the ExperimentHandler
-  if (psychoJS.experiment._unfinishedLoops.length>0)
-    currentLoop = psychoJS.experiment._unfinishedLoops.at(-1);
-  else
-    currentLoop = psychoJS.experiment;  // so we use addData from the experiment
+
   return Scheduler.Event.NEXT;
-}
-
-
-function trialsLoopEndIteration(scheduler, snapshot) {
-  // ------Prepare for next entry------
-  return async function () {
-    if (typeof snapshot !== 'undefined') {
-      // ------Check if user ended loop early------
-      if (snapshot.finished) {
-        // Check for and save orphaned data
-        if (psychoJS.experiment.isEntryEmpty()) {
-          psychoJS.experiment.nextEntry(snapshot);
-        }
-        scheduler.stop();
-      } else {
-        psychoJS.experiment.nextEntry(snapshot);
-      }
-    return Scheduler.Event.NEXT;
-    }
-  };
 }
 
 
@@ -795,13 +737,12 @@ function gateRoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //--- Prepare to start Routine 'gate' ---
+    //------Prepare to start Routine 'gate'-------
     t = 0;
     gateClock.reset(); // clock
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
-    // Run 'Begin Routine' code from gate_code
     psychoJS.experiment.addData("expVersion", expVersion);
     within_reveal_time = true;
     objs = [];
@@ -867,12 +808,11 @@ var fruit_pos;
 var found_count;
 function gateRoutineEachFrame() {
   return async function () {
-    //--- Loop for each frame of Routine 'gate' ---
+    //------Loop for each frame of Routine 'gate'-------
     // get current time
     t = gateClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    // Run 'Each Frame' code from gate_code
     if (((trial_name !== "Practice trial") && (t >= SOUND_DUR))) {
         for (var i, _pj_c = 0, _pj_a = util.range(n_fruits), _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
             i = _pj_a[_pj_c];
@@ -977,15 +917,14 @@ function gateRoutineEachFrame() {
 }
 
 
-function gateRoutineEnd(snapshot) {
+function gateRoutineEnd() {
   return async function () {
-    //--- Ending Routine 'gate' ---
+    //------Ending Routine 'gate'-------
     for (const thisComponent of gateComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
     }
-    // Run 'End Routine' code from gate_code
     NEXT.autoDraw = false;
     if ((USE_AUDIO && (trial_name === "Practice trial"))) {
         SOUND.stop();
@@ -994,12 +933,8 @@ function gateRoutineEnd(snapshot) {
     // the Routine "gate" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
-    // Routines running outside a loop should always advance the datafile row
-    if (currentLoop === psychoJS.experiment) {
-      psychoJS.experiment.nextEntry(snapshot);
-    }
     return Scheduler.Event.NEXT;
-  }
+  };
 }
 
 
@@ -1008,7 +943,7 @@ function part1RoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //--- Prepare to start Routine 'part1' ---
+    //------Prepare to start Routine 'part1'-------
     t = 0;
     part1Clock.reset(); // clock
     frameN = -1;
@@ -1027,7 +962,7 @@ function part1RoutineBegin(snapshot) {
 
 function part1RoutineEachFrame() {
   return async function () {
-    //--- Loop for each frame of Routine 'part1' ---
+    //------Loop for each frame of Routine 'part1'-------
     // get current time
     t = part1Clock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
@@ -1059,9 +994,9 @@ function part1RoutineEachFrame() {
 }
 
 
-function part1RoutineEnd(snapshot) {
+function part1RoutineEnd() {
   return async function () {
-    //--- Ending Routine 'part1' ---
+    //------Ending Routine 'part1'-------
     for (const thisComponent of part1Components) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
@@ -1070,12 +1005,8 @@ function part1RoutineEnd(snapshot) {
     // the Routine "part1" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
-    // Routines running outside a loop should always advance the datafile row
-    if (currentLoop === psychoJS.experiment) {
-      psychoJS.experiment.nextEntry(snapshot);
-    }
     return Scheduler.Event.NEXT;
-  }
+  };
 }
 
 
@@ -1099,13 +1030,12 @@ function part2RoutineBegin(snapshot) {
   return async function () {
     TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
     
-    //--- Prepare to start Routine 'part2' ---
+    //------Prepare to start Routine 'part2'-------
     t = 0;
     part2Clock.reset(); // clock
     frameN = -1;
     continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
-    // Run 'Begin Routine' code from part2_code
     DRAGGING = false;
     clicked_obj = null;
     clicked_obj_name = "_";
@@ -1155,12 +1085,11 @@ var time_since_start;
 var time_since_first_click;
 function part2RoutineEachFrame() {
   return async function () {
-    //--- Loop for each frame of Routine 'part2' ---
+    //------Loop for each frame of Routine 'part2'-------
     // get current time
     t = part2Clock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-    // Run 'Each Frame' code from part2_code
     if ((fruits_left > 0)) {
         time_since_start = t;
         time_since_first_click = (first_click ? 0 : (t - first_click_time));
@@ -1293,15 +1222,14 @@ function part2RoutineEachFrame() {
 
 var score;
 var errors;
-function part2RoutineEnd(snapshot) {
+function part2RoutineEnd() {
   return async function () {
-    //--- Ending Routine 'part2' ---
+    //------Ending Routine 'part2'-------
     for (const thisComponent of part2Components) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
     }
-    // Run 'End Routine' code from part2_code
     NEXT.autoDraw = false;
     for (var found_fruit, _pj_c = 0, _pj_a = found_fruits, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         found_fruit = _pj_a[_pj_c];
@@ -1344,12 +1272,31 @@ function part2RoutineEnd(snapshot) {
     // the Routine "part2" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
-    // Routines running outside a loop should always advance the datafile row
-    if (currentLoop === psychoJS.experiment) {
-      psychoJS.experiment.nextEntry(snapshot);
-    }
     return Scheduler.Event.NEXT;
-  }
+  };
+}
+
+
+function endLoopIteration(scheduler, snapshot) {
+  // ------Prepare for next entry------
+  return async function () {
+    if (typeof snapshot !== 'undefined') {
+      // ------Check if user ended loop early------
+      if (snapshot.finished) {
+        // Check for and save orphaned data
+        if (psychoJS.experiment.isEntryEmpty()) {
+          psychoJS.experiment.nextEntry(snapshot);
+        }
+        scheduler.stop();
+      } else {
+        const thisTrial = snapshot.getCurrentTrial();
+        if (typeof thisTrial === 'undefined' || !('isTrials' in thisTrial) || thisTrial.isTrials) {
+          psychoJS.experiment.nextEntry(snapshot);
+        }
+      }
+    return Scheduler.Event.NEXT;
+    }
+  };
 }
 
 
@@ -1369,7 +1316,6 @@ async function quitPsychoJS(message, isCompleted) {
   
   
   
-  // Run 'End Experiment' code from begin_code
   if (USE_AUDIO) {
       aud_file = `${AUD_DIR}/8 boxes End of Game.m4a`;
       SOUND = make_sound("end", aud_file);
