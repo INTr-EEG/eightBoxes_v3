@@ -16,7 +16,7 @@ jobs:
       
     # Add build steps if you need to compile or build your project.
     # For example, if you're using Node.js you would add:
-    # - name: Build the project
+    # - name: Build the project for MOE
     #   run: |
     #     npm install
     #     npm run build
