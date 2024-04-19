@@ -13,7 +13,7 @@ const { round } = util;
 
 // store info about the experiment session:
 let expName = 'eightBoxes_v3';  // from the Builder filename that created this script
-let expInfo = {'participant': '', 'School': '', 'Max number of trials': [5, 8], 'Audio': ['Yes', 'No'], 'Debug': ['No', 'Yes']};
+let expInfo = {'participant': '', 'School': '', 'Number of trials': ['N2 - 5 trials', 'K1 and K2 - 8 trials'], 'Audio': ['Yes', 'No'], 'Debug': ['No', 'Yes']};
 
 // Start code blocks for 'Before Experiment'
 
@@ -118,25 +118,25 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-    {'name': 'resources/imgs/cherries.png', 'path': 'resources/imgs/cherries.png'},
-    {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'},
-    {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'},
-    {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'},
-    {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
-    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
     {'name': 'resources/aud/8 boxes Slide 4.m4a', 'path': 'resources/aud/8 boxes Slide 4.m4a'},
-    {'name': 'resources/imgs/continue.png', 'path': 'resources/imgs/continue.png'},
-    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
-    {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
-    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
-    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 3_Trimmed.m4a', 'path': 'resources/aud/8 boxes Slide 3_Trimmed.m4a'},
-    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
-    {'name': 'resources/imgs/watermelon.png', 'path': 'resources/imgs/watermelon.png'},
     {'name': 'resources/aud/8 boxes Trials 1-8 Recall.m4a', 'path': 'resources/aud/8 boxes Trials 1-8 Recall.m4a'},
+    {'name': 'resources/aud/8 boxes Slide 1.m4a', 'path': 'resources/aud/8 boxes Slide 1.m4a'},
     {'name': 'resources/aud/8 boxes End of Game.m4a', 'path': 'resources/aud/8 boxes End of Game.m4a'},
-    {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'}
+    {'name': 'resources/imgs/empty-box.png', 'path': 'resources/imgs/empty-box.png'},
+    {'name': 'resources/imgs/grapes.png', 'path': 'resources/imgs/grapes.png'},
+    {'name': 'resources/aud/8 boxes Slide 3.m4a', 'path': 'resources/aud/8 boxes Slide 3.m4a'},
+    {'name': 'resources/imgs/cherries.png', 'path': 'resources/imgs/cherries.png'},
+    {'name': 'resources/imgs/strawberry.png', 'path': 'resources/imgs/strawberry.png'},
+    {'name': 'resources/aud/8 boxes Slide 2.m4a', 'path': 'resources/aud/8 boxes Slide 2.m4a'},
+    {'name': 'resources/imgs/apple.png', 'path': 'resources/imgs/apple.png'},
+    {'name': 'resources/imgs/pineapple.png', 'path': 'resources/imgs/pineapple.png'},
+    {'name': 'resources/imgs/watermelon.png', 'path': 'resources/imgs/watermelon.png'},
+    {'name': 'resources/aud/8 boxes Slide 3_Trimmed.m4a', 'path': 'resources/aud/8 boxes Slide 3_Trimmed.m4a'},
+    {'name': 'resources/imgs/orange.png', 'path': 'resources/imgs/orange.png'},
+    {'name': 'resources/imgs/continue.png', 'path': 'resources/imgs/continue.png'},
+    {'name': 'resources/imgs/box.png', 'path': 'resources/imgs/box.png'},
+    {'name': 'resources/seqs/conditions_v3.csv', 'path': 'resources/seqs/conditions_v3.csv'},
+    {'name': 'resources/imgs/banana.png', 'path': 'resources/imgs/banana.png'}
   ]
 });
 
@@ -222,7 +222,14 @@ async function experimentInit() {
   IMGS_DIR = "resources/imgs";
   SLIDES_DIR = `${IMGS_DIR}/slides`;
   SEQ_FILE = "resources/seqs/conditions_v3.csv";
-  MAX_TRIALS = Number.parseInt(expInfo["Max number of trials"]);
+  MAX_TRIALS = 5;
+  if ((expInfo["Number of trials"] === "N2 - 5 trials")) {
+      MAX_TRIALS = 5;
+  } else {
+      if ((expInfo["Number of trials"] === "K1 and K2 - 8 trials")) {
+          MAX_TRIALS = 8;
+      }
+  }
   SHOW_DEBUG = (expInfo["Debug"] === "Yes");
   USE_AUDIO = (expInfo["Audio"] === "Yes");
   selected_rows = `0:${(MAX_TRIALS + 1)}`;
